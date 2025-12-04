@@ -5,13 +5,13 @@ target_compile_features(${PROJECT_NAME}
 
 target_compile_definitions(${PROJECT_NAME}
     PRIVATE
-    QZeroZanyUI
+    SONIXBEAUTYUI
 )
 
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    QT_QMLCACHEGEN_ARGUMENTS "--verbose" # "--direct-calls" "--verbose"
+    QT_QMLCACHEGEN_ARGUMENTS "--direct-calls" # "--direct-calls" "--verbose"
 )
 
 if(MSVC)

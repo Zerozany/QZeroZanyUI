@@ -1,6 +1,5 @@
 _Pragma("once");
 #include <QVariantMap>
-#include <QColor>
 
 namespace Themes
 {
