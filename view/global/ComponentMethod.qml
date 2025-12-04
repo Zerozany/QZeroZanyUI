@@ -4,7 +4,7 @@ import QtQuick
 QtObject {
 
     // 获取顶层窗口对象
-    function findTopLevelWindow(_item) {
+    function findTopLevelWindow(_item: var): var {
         while (_item.parent) {
             _item = _item.parent;
         }
@@ -13,7 +13,7 @@ QtObject {
 
     // 全局提示气泡
     function showApplicationTip(_parentItem: var, _text: var, _interval: int): var {
-        var obj = Qt.createComponent("qrc:/qt/qml/QZeroZanyUI/view/content/ApplicationTip.qml");
+        var obj = Qt.createComponent("qrc:/qt/qml/SonixBeautyUI/view/content/ApplicationTip.qml");
         if (obj.status === Component.Ready) {
             obj.createObject(_parentItem, {
                 text: _text || "",
