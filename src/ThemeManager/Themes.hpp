@@ -14,10 +14,4 @@ namespace Themes
         {"labelColor", "transparent"},
     };
 
-    inline QVariantMap styleSize{
-        {"elementMargins", 5},
-        {"elementRadius", 5},
-        {"elementSpacing", 5},
-    };
-
 }  // namespace Themes

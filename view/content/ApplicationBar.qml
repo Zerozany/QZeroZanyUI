@@ -14,8 +14,8 @@ Rectangle {
     readonly property int leftEdge: 2
     readonly property int rightEdge: 3
     readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
-    readonly property int elementRadius: ThemeManager.styleSize["elementRadius"]
-    readonly property int elementMargins: ThemeManager.styleSize["elementMargins"]
+    readonly property int elementRadius: ElementStyle.elementRadius
+    readonly property int elementMargins: ElementStyle.elementMargins
     readonly property bool landScape: ComponentMethod.findTopLevelWindow(parent).width > ComponentMethod.findTopLevelWindow(parent).height
 
     ColumnLayout {}

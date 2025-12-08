@@ -9,9 +9,9 @@ Rectangle {
 
     readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property string textColor: ThemeManager.currentTheme["textColor"]
-    readonly property int elementRadius: ThemeManager.styleSize["elementRadius"]
-    readonly property int elementMargins: ThemeManager.styleSize["elementMargins"]
-    readonly property int elementSpacing: ThemeManager.styleSize["elementSpacing"]
+    readonly property int elementRadius: ElementStyle.elementRadius
+    readonly property int elementMargins: ElementStyle.elementMargins
+    readonly property int elementSpacing: ElementStyle.elementSpacing
     readonly property int fontSize: ThemeFont.fontSize
 
     Text {

@@ -1,7 +1,6 @@
 #include "ThemeManager.h"
 #include <QJSEngine>
 #include <QQmlEngine>
-#include <QDir>
 
 QVariantMap ThemeManager::currentTheme() const
 {
@@ -16,21 +15,6 @@ void ThemeManager::setCurrentTheme(const QVariantMap& _currentTheme)
     }
     m_currentTheme = _currentTheme;
     Q_EMIT this->currentThemeChanged();
-}
-
-QVariantMap ThemeManager::styleSize() const
-{
-    return m_styleSize;
-}
-
-void ThemeManager::setStyleSize(const QVariantMap& _styleSize)
-{
-    if (m_styleSize == _styleSize)
-    {
-        return;
-    }
-    m_styleSize = _styleSize;
-    Q_EMIT this->styleSizeChanged();
 }
 
 ThemeManager* ThemeManager::create(QQmlEngine*, QJSEngine*)
@@ -48,7 +32,6 @@ ThemeManager::ThemeManager(QObject* _parent) : QObject{_parent}
 auto ThemeManager::init() noexcept -> void
 {
     this->setCurrentTheme(Themes::lightTheme);
-    this->setStyleSize(Themes::styleSize);
 }
 
 auto ThemeManager::connectSignal2Slot() noexcept -> void

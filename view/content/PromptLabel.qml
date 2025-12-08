@@ -12,9 +12,9 @@ Rectangle {
 
     readonly property string textColor: ThemeManager.currentTheme["textColor"]
     readonly property string labelColor: ThemeManager.currentTheme["labelColor"]
-    readonly property int elementRadius: ThemeManager.styleSize["elementRadius"]
-    readonly property int elementMargins: ThemeManager.styleSize["elementMargins"]
-    readonly property int elementSpacing: ThemeManager.styleSize["elementSpacing"]
+    readonly property int elementRadius: ElementStyle.elementRadius
+    readonly property int elementMargins: ElementStyle.elementMargins
+    readonly property int elementSpacing: ElementStyle.elementSpacing
 
     RowLayout {
         anchors.centerIn: parent
