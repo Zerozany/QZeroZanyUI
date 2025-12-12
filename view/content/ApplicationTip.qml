@@ -16,6 +16,7 @@ Rectangle {
     readonly property int elementRadius: ElementStyle.elementRadius
     readonly property int elementMargins: ElementStyle.elementMargins
     readonly property int fontSize: ThemeFont.fontSize
+    readonly property string fontFamily: ThemeFont.fontFamily
 
     Text {
         anchors.fill: parent
@@ -23,6 +24,7 @@ Rectangle {
         text: root.text
         color: root.textColor
         font.pointSize: root.fontSize
+        font.family: root.fontFamily
         wrapMode: Text.WrapAnywhere
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter

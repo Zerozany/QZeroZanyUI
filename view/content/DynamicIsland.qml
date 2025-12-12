@@ -8,14 +8,13 @@ Rectangle {
     height: root.selfHeight
     color: root.elementColor
     radius: root.elementRadius
-    focus: true
 
     readonly property int selfX: (ComponentMethod.findTopLevelWindow(parent).width - root.width) * 0.5
     readonly property int selfY: ComponentConf.landScape ? ComponentMethod.findTopLevelWindow(parent).height * 0.025 : ComponentMethod.findTopLevelWindow(parent).height * 0.015
     readonly property int selfWidth: ComponentConf.landScape ? ComponentMethod.findTopLevelWindow(parent).width * 0.4 : ComponentMethod.findTopLevelWindow(parent).width * 0.4
     readonly property int selfHeight: ComponentConf.landScape ? ComponentMethod.findTopLevelWindow(parent).height * 0.05 : ComponentMethod.findTopLevelWindow(parent).height * 0.025
-    readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property int elementRadius: ElementStyle.elementRadius * 4
+    readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
 
     property bool clickedAnimationStart: false
     property bool pressedAnimationStart: false
