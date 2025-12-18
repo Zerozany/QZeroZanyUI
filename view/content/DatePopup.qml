@@ -35,8 +35,7 @@ Popup {
             visibleItemCount: root.visibleItemCount
             flickDeceleration: root.flickDeceleration
             wrap: true
-            Layout.preferredHeight: root.height * 0.5
-            Layout.preferredWidth: root.width * 0.2
+            Layout.preferredHeight: root.height * 0.7
             Layout.alignment: Qt.AlignCenter
 
             model: {
@@ -59,13 +58,19 @@ Popup {
             }
         }
 
+        Text {
+            text: qsTr("年")
+            font.pixelSize: 24
+            font.bold: true
+            Layout.alignment: Qt.AlignCenter
+        }
+
         Tumbler {
             id: monthTumbler
             visibleItemCount: root.visibleItemCount
             flickDeceleration: root.flickDeceleration
             wrap: true
-            Layout.preferredHeight: root.height * 0.5
-            Layout.preferredWidth: root.width * 0.2
+            Layout.preferredHeight: root.height * 0.7
             Layout.alignment: Qt.AlignCenter
 
             model: {
@@ -88,13 +93,19 @@ Popup {
             }
         }
 
+        Text {
+            text: qsTr("月")
+            font.pixelSize: 24
+            font.bold: true
+            Layout.alignment: Qt.AlignCenter
+        }
+
         Tumbler {
             id: dayTumbler
             visibleItemCount: root.visibleItemCount
             flickDeceleration: root.flickDeceleration
             wrap: true
-            Layout.preferredHeight: root.height * 0.5
-            Layout.preferredWidth: root.width * 0.2
+            Layout.preferredHeight: root.height * 0.7
             Layout.alignment: Qt.AlignCenter
 
             model: {
@@ -115,6 +126,13 @@ Popup {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
+        }
+
+        Text {
+            text: qsTr("日")
+            font.pixelSize: 24
+            font.bold: true
+            Layout.alignment: Qt.AlignCenter
         }
     }
 }
