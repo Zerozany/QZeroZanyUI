@@ -67,7 +67,7 @@ Popup {
 
             delegate: Text {
                 required property var modelData
-                readonly property bool isCurrent: root.year === modelData
+                readonly property bool isCurrent: Number(root.year) === modelData
                 text: modelData
                 font.pixelSize: isCurrent ? 25 : 22
                 font.bold: isCurrent
