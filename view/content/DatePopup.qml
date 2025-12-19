@@ -39,7 +39,6 @@ Popup {
             monthTumbler.currentIndex = Math.max(0, Number(ymdArr[1]) - 1);
             dayTumbler.currentIndex = Math.max(0, Math.min(Number(ymdArr[2]), new Date(Number(ymdArr[0]), Number(ymdArr[1]), 0).getDate()) - 1);
         });
-        console.log(date);
     }
 
     onClosed: {

@@ -36,6 +36,7 @@ Rectangle {
 
             Image {
                 source: root._pressedTag ? root.sourcePressed : root.source
+                visible: !root.sourcePressed && !root.source
                 fillMode: Image.PreserveAspectFit
                 Layout.preferredWidth: root.width <= root.height ? root.width * 0.2 : root.height * 0.5
                 Layout.alignment: Qt.AlignVCenter
@@ -63,6 +64,7 @@ Rectangle {
 
             Image {
                 source: root._pressedTag ? root.sourcePressed : root.source
+                visible: !root.sourcePressed && !root.source
                 fillMode: Image.PreserveAspectFit
                 Layout.preferredHeight: root.width <= root.height ? root.width * 0.2 : root.height * 0.5
                 Layout.alignment: Qt.AlignHCenter
