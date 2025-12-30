@@ -9,15 +9,15 @@ ThemeFont* ThemeFont::create(QQmlEngine*, QJSEngine*)
 ThemeFont::ThemeFont(QObject* _parent) : QObject{_parent}
 {
     this->setFontFamily(ThemeFont::fontFamilys.value("zh_CN").toString());
-    this->setFontSize(ThemeFont::fontSizeType.value("L").toInt());
+    this->setFontSize(ThemeFont::fontSizeType);
 }
 
-Q_INVOKABLE quint8 ThemeFont::fontSize() const
+Q_INVOKABLE QVariantMap ThemeFont::fontSize() const
 {
     return m_fontSize;
 }
 
-Q_INVOKABLE void ThemeFont::setFontSize(const quint8& _fontSize)
+Q_INVOKABLE void ThemeFont::setFontSize(const QVariantMap& _fontSize)
 {
     if (m_fontSize == _fontSize)
     {

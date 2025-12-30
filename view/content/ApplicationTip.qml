@@ -2,35 +2,38 @@ import QtQuick
 
 Rectangle {
     id: root
-    x: (parent.width - root.width) * 0.5
-    y: ComponentConf.landScape ? parent.height * 0.2 : parent.height * 0.1
-    width: ComponentConf.landScape ? parent.width * 0.5 : parent.width * 0.8
+    x: root.selfX
+    y: root.selfY
+    width: root.selfWidth
     radius: root.elementRadius
     color: root.elementColor
 
     property string text: ""
     property int interval: 2000
 
+    readonly property int selfX: (parent.width - root.width) * 0.5
+    readonly property int selfY: ComponentConf.landScape ? parent.height * 0.2 : parent.height * 0.1
+    readonly property int selfWidth: ComponentConf.landScape ? parent.width * 0.5 : parent.width * 0.8
     readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property string textColor: ThemeManager.currentTheme["textColor"]
     readonly property int elementRadius: ElementStyle.elementRadius
     readonly property int elementMargins: ElementStyle.elementMargins
-    readonly property int fontSize: ThemeFont.fontSize
+    readonly property int fontSize: ThemeFont.fontSize["XL"]
     readonly property string fontFamily: ThemeFont.fontFamily
 
     Text {
         anchors.fill: parent
-        anchors.margins: root.elementMargins
         text: root.text
         color: root.textColor
         font.pointSize: root.fontSize
         font.family: root.fontFamily
         wrapMode: Text.WrapAnywhere
-        horizontalAlignment: Qt.AlignHCenter
-        verticalAlignment: Qt.AlignVCenter
+        padding: root.elementMargins
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
 
         Component.onCompleted: {
-            root.height = implicitHeight + root.elementMargins * 2;
+            root.height = implicitHeight;
         }
     }
 
@@ -46,7 +49,7 @@ Rectangle {
             ScaleAnimator {
                 target: root
                 duration: 300
-                from: 0.8
+                from: 0.5
                 to: 1
                 easing.type: Easing.OutQuart
             }
