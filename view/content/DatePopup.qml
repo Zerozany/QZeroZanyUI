@@ -5,8 +5,8 @@ import QtQuick.Layouts
 
 Popup {
     id: root
-    x: root.selfX
-    y: root.selfY
+    parent: Overlay.overlay
+    anchors.centerIn: parent
     width: root.selfWidth
     height: root.selfHeight
     background: Rectangle {
@@ -15,10 +15,8 @@ Popup {
     }
 
     property string date: ""
-    readonly property int selfX: (ComponentMethod.findTopLevelWindow(parent).width - root.width) * 0.5
-    readonly property int selfY: (ComponentMethod.findTopLevelWindow(parent).height - root.height) * 0.5
-    readonly property int selfWidth: ComponentConf.landScape ? ComponentMethod.findTopLevelWindow(parent).width * 0.6 : ComponentMethod.findTopLevelWindow(parent).width * 0.7
-    readonly property int selfHeight: ComponentConf.landScape ? ComponentMethod.findTopLevelWindow(parent).height * 0.6 : ComponentMethod.findTopLevelWindow(parent).height * 0.4
+    readonly property int selfWidth: ComponentConf.landScape ? parent.Window.window.contentItem.width * 0.6 : parent.Window.window.contentItem.width * 0.7
+    readonly property int selfHeight: ComponentConf.landScape ? parent.Window.window.contentItem.height * 0.6 : parent.Window.window.contentItem.height * 0.4
     readonly property int elementRadius: ElementStyle.elementRadius * 20
     readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property int visibleItemCount: 7

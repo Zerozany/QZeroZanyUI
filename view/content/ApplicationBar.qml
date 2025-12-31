@@ -1,9 +1,11 @@
 import QtQuick
+import QtQuick.Controls
 
 Rectangle {
     id: root
     radius: root.elementRadius
     color: root.elementColor
+    parent: Overlay.overlay
 
     property int edge: -1
     property Component contentItem: null
@@ -15,7 +17,7 @@ Rectangle {
     readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property int elementRadius: ElementStyle.elementRadius
     readonly property int elementMargins: ElementStyle.elementMargins
-    readonly property bool landScape: ComponentMethod.findTopLevelWindow(parent).width > ComponentMethod.findTopLevelWindow(parent).height
+    readonly property bool landScape: parent.width > parent.height
 
     Loader {
         anchors.fill: parent
@@ -25,25 +27,25 @@ Rectangle {
     onEdgeChanged: {
         if (root.edge === root.topEdge || root.edge === root.bottomEdge) {
             if (landScape) {
-                root.height = ComponentMethod.findTopLevelWindow(parent).height * 0.08;
+                root.height = parent.height * 0.08;
             } else {
-                root.height = ComponentMethod.findTopLevelWindow(parent).height * 0.05;
+                root.height = parent.height * 0.05;
             }
-            root.width = ComponentMethod.findTopLevelWindow(parent).width * 0.33;
+            root.width = parent.width * 0.33;
         }
         if (root.edge === root.leftEdge || root.edge === root.rightEdge) {
             if (landScape) {
-                root.width = ComponentMethod.findTopLevelWindow(parent).width * 0.05;
+                root.width = parent.width * 0.05;
             } else {
-                root.width = ComponentMethod.findTopLevelWindow(parent).width * 0.08;
+                root.width = parent.width * 0.08;
             }
-            root.height = ComponentMethod.findTopLevelWindow(parent).height * 0.33;
+            root.height = parent.height * 0.33;
         }
         if (root.edge === root.topEdge || root.edge === root.bottomEdge) {
-            root.x = (ComponentMethod.findTopLevelWindow(parent).width - root.width) / 2;
+            root.x = (parent.width - root.width) / 2;
         }
         if (root.edge === root.leftEdge || root.edge === root.rightEdge) {
-            root.y = (ComponentMethod.findTopLevelWindow(parent).height - root.height) / 2;
+            root.y = (parent.height - root.height) / 2;
         }
     }
 

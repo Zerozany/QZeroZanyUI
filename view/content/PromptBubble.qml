@@ -12,7 +12,7 @@ Rectangle {
     readonly property int elementRadius: ElementStyle.elementRadius
     readonly property int elementMargins: ElementStyle.elementMargins
     readonly property int elementSpacing: ElementStyle.elementSpacing
-    readonly property int fontSize: ThemeFont.fontSize
+    readonly property int fontSize: ThemeFont.fontSize["L"]
 
     Text {
         anchors.centerIn: parent
