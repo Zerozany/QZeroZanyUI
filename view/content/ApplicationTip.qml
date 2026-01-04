@@ -1,7 +1,9 @@
 import QtQuick
+import QtQuick.Controls
 
 Rectangle {
     id: root
+    parent: Overlay.overlay
     anchors.top: parent.top
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.topMargin: ComponentConf.landScape ? parent.height * 0.2 : parent.height * 0.1
