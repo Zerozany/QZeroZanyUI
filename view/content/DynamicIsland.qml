@@ -22,10 +22,8 @@ Rectangle {
     property bool animationEnd: false
 
     MouseArea {
-        x: -(root.x)
-        y: -(root.y)
-        width: parent.Window.window.contentItem.width
-        height: parent.Window.window.contentItem.height
+        parent: Overlay.overlay
+        anchors.fill: parent
         enabled: root.clickedAnimationStart || root.pressedAnimationStart
         onClicked: {
             root.clickedAnimationStart = false;
