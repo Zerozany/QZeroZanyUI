@@ -22,7 +22,6 @@ Rectangle {
     readonly property int elementRadius: ElementStyle.elementRadius * 2
     readonly property int elementSpacing: ElementStyle.elementSpacing
     readonly property int elementMargins: ElementStyle.elementMargins * 2
-    readonly property string fontFamily: ThemeFont.fontFamily
     readonly property string placeholderTextColor: "gray"
     readonly property string passwordCharacter: "•"
 
@@ -47,7 +46,6 @@ Rectangle {
             font.letterSpacing: root.elementSpacing * 0.5
             font.bold: root.fontBold
             font.pixelSize: parent.height * 0.3
-            font.family: root.fontFamily
             leftPadding: 0
             rightPadding: 0
             verticalAlignment: Text.AlignVCenter
