@@ -46,6 +46,8 @@ Rectangle {
             passwordCharacter: root.passwordCharacter
             font.letterSpacing: root.elementSpacing * 0.5
             font.bold: root.fontBold
+            font.pixelSize: parent.height * 0.3
+            font.family: root.fontFamily
             leftPadding: 0
             rightPadding: 0
             verticalAlignment: Text.AlignVCenter
