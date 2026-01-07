@@ -8,14 +8,15 @@ Rectangle {
     border.color: inputText.activeFocus ? "black" : "#DCDCDC"
     radius: root.elementRadius
 
-    property var text: null
-    property var placeText: null
     property url source: ""
     property url passwordSource: ""
     property url passwordPressedSource: ""
     property url clearSource: ""
     property bool password: false
-    property bool fontBold: false
+    property alias text: inputText.text
+    property alias placeText: inputText.placeholderText
+    property alias fontBold: inputText.font.bold
+    property alias readOnly: inputText.readOnly
 
     readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property string textColor: ThemeManager.currentTheme["textColor"]
@@ -24,6 +25,11 @@ Rectangle {
     readonly property int elementMargins: ElementStyle.elementMargins * 2
     readonly property string placeholderTextColor: "gray"
     readonly property string passwordCharacter: "•"
+
+    function __switchPasswordVisible() {
+        inputText.echoMode = inputText.echoMode === TextInput.Password ? TextInput.Normal : TextInput.Password;
+        passwordImage.source = passwordImage.source === root.passwordSource ? root.passwordPressedSource : root.passwordSource;
+    }
 
     RowLayout {
         anchors.fill: parent
@@ -39,12 +45,11 @@ Rectangle {
 
         TextField {
             id: inputText
-            placeholderText: root.placeText
             placeholderTextColor: root.placeholderTextColor
             echoMode: root.password ? TextInput.Password : TextInput.Normal
             passwordCharacter: root.passwordCharacter
+            color: root.textColor
             font.letterSpacing: root.elementSpacing * 0.5
-            font.bold: root.fontBold
             font.pixelSize: parent.height * 0.3
             leftPadding: 0
             rightPadding: 0
@@ -87,10 +92,7 @@ Rectangle {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: {
-                    inputText.echoMode = inputText.echoMode === TextInput.Password ? TextInput.Normal : TextInput.Password;
-                    parent.source = parent.source === root.passwordSource ? root.passwordPressedSource : root.passwordSource;
-                }
+                onClicked: root.__switchPasswordVisible()
             }
         }
     }
@@ -103,8 +105,7 @@ Rectangle {
         onClicked: function (_mouse) {
             var localPos = passwordImage.mapFromItem(parent, _mouse.x, _mouse.y);
             if (root.password && passwordImage.contains(localPos)) {
-                inputText.echoMode = inputText.echoMode === TextInput.Password ? TextInput.Normal : TextInput.Password;
-                passwordImage.source = passwordImage.source === root.passwordSource ? root.passwordPressedSource : root.passwordSource;
+                root.__switchPasswordVisible();
                 return;
             }
             localPos = clearImage.mapFromItem(parent, _mouse.x, _mouse.y);
@@ -113,7 +114,7 @@ Rectangle {
                 return;
             }
             localPos = root.mapFromItem(parent, _mouse.x, _mouse.y);
-            if (localPos.x < 0 || localPos.y < 0 || localPos.x > root.width || localPos.y > root.height) {
+            if (!root.contains(localPos)) {
                 inputText.focus = false;
                 return;
             }
