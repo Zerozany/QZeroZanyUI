@@ -18,12 +18,10 @@ Rectangle {
     readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property int pressAndHoldInterval: 300
 
-    property bool clickedAnimationStart: false
-    property bool pressedAnimationStart: false
-    property bool animationEnd: false
+    property int __dynamicIslandIndex: 0
 
     MouseArea {
-        parent: root.clickedAnimationStart || root.pressedAnimationStart ? Overlay.overlay : root
+        parent: root.__dynamicIslandIndex !== 0 ? Overlay.overlay : root
         anchors.fill: parent
         pressAndHoldInterval: root.pressAndHoldInterval
         propagateComposedEvents: true
@@ -31,51 +29,38 @@ Rectangle {
         onClicked: function (_mouse) {
             var localPos = root.mapFromItem(parent, _mouse.x, _mouse.y);
             if (root.contains(localPos)) {
-                if (root.pressedAnimationStart) {
+                if (root.__dynamicIslandIndex === 2) {
                     return;
                 }
-                root.clickedAnimationStart = false;
-                root.clickedAnimationStart = true;
+                clickSequentialAnimation.restart();
+                root.__dynamicIslandIndex = 1;
             } else {
-                root.clickedAnimationStart = false;
-                root.pressedAnimationStart = false;
-                root.animationEnd = true;
+                closeParallelAnimation.restart();
+                root.__dynamicIslandIndex = 0;
             }
         }
 
         onPressAndHold: function (_mouse) {
             var localPos = root.mapFromItem(parent, _mouse.x, _mouse.y);
             if (root.contains(localPos)) {
-                if (root.pressedAnimationStart) {
-                    return;
-                }
-                root.clickedAnimationStart = false;
-                root.pressedAnimationStart = false;
-                root.pressedAnimationStart = true;
+                pressedSequentialAnimation.restart();
+                root.__dynamicIslandIndex = 2;
             } else {
-                root.clickedAnimationStart = false;
-                root.pressedAnimationStart = false;
-                root.animationEnd = true;
+                closeParallelAnimation.restart();
+                root.__dynamicIslandIndex = 0;
             }
         }
     }
 
     SequentialAnimation {
-        running: root.clickedAnimationStart || root.pressedAnimationStart
+        id: clickSequentialAnimation
 
         ParallelAnimation {
             NumberAnimation {
                 target: root
                 property: "height"
                 duration: 150
-                to: {
-                    if (root.clickedAnimationStart) {
-                        return root.selfHeight * 1.8;
-                    } else if (root.pressedAnimationStart) {
-                        return root.selfHeight * 4;
-                    }
-                    return root.selfHeight;
-                }
+                to: root.selfHeight * 1.8
             }
 
             NumberAnimation {
@@ -91,14 +76,43 @@ Rectangle {
                 target: root
                 property: "height"
                 duration: 150
-                to: {
-                    if (root.clickedAnimationStart) {
-                        return root.selfHeight * 1.6;
-                    } else if (root.pressedAnimationStart) {
-                        return root.selfHeight * 3.9;
-                    }
-                    return root.selfHeight;
-                }
+                to: root.selfHeight * 1.6
+            }
+
+            NumberAnimation {
+                target: root
+                property: "width"
+                duration: 150
+                to: root.selfWidth * 1.4
+            }
+        }
+    }
+
+    SequentialAnimation {
+        id: pressedSequentialAnimation
+
+        ParallelAnimation {
+            NumberAnimation {
+                target: root
+                property: "height"
+                duration: 150
+                to: root.selfHeight * 4
+            }
+
+            NumberAnimation {
+                target: root
+                property: "width"
+                duration: 150
+                to: root.selfWidth * 1.6
+            }
+        }
+
+        ParallelAnimation {
+            NumberAnimation {
+                target: root
+                property: "height"
+                duration: 150
+                to: root.selfHeight * 3.9
             }
 
             NumberAnimation {
@@ -111,7 +125,7 @@ Rectangle {
     }
 
     ParallelAnimation {
-        running: root.animationEnd
+        id: closeParallelAnimation
 
         NumberAnimation {
             target: root
@@ -125,10 +139,6 @@ Rectangle {
             property: "width"
             duration: 150
             to: root.selfWidth
-        }
-
-        onStopped: {
-            root.animationEnd = false;
         }
     }
 }
