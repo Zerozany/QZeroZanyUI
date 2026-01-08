@@ -21,7 +21,6 @@ Rectangle {
     readonly property int elementMargins: ElementStyle.elementMargins
     readonly property int fontSize: ThemeFont.fontSize["XL"]
     readonly property string fontFamily: ThemeFont.fontFamily
-    readonly property string objectName: "PromptBanner"
     readonly property int animationDuration: 300
 
     Text {
@@ -43,7 +42,7 @@ Rectangle {
     Component.onCompleted: {
         for (let i = parent.children.length - 1; i >= 0; --i) {
             let _item = parent.children[i];
-            if (_item !== root && _item.objectName === "PromptBanner") {
+            if (_item !== root && _item instanceof PromptBanner) {
                 _item.destroy();
             }
         }
