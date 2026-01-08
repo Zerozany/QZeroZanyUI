@@ -28,27 +28,27 @@ Rectangle {
 
         onClicked: function (_mouse) {
             var localPos = root.mapFromItem(parent, _mouse.x, _mouse.y);
-            if (root.contains(localPos)) {
-                if (root.__dynamicIslandIndex === 2) {
-                    return;
-                }
-                clickSequentialAnimation.restart();
-                root.__dynamicIslandIndex = 1;
-            } else {
+            if (!root.contains(localPos)) {
                 closeParallelAnimation.restart();
                 root.__dynamicIslandIndex = 0;
+                return;
             }
+            if (root.__dynamicIslandIndex === 2) {
+                return;
+            }
+            clickSequentialAnimation.restart();
+            root.__dynamicIslandIndex = 1;
         }
 
         onPressAndHold: function (_mouse) {
             var localPos = root.mapFromItem(parent, _mouse.x, _mouse.y);
-            if (root.contains(localPos)) {
-                pressedSequentialAnimation.restart();
-                root.__dynamicIslandIndex = 2;
-            } else {
+            if (!root.contains(localPos)) {
                 closeParallelAnimation.restart();
                 root.__dynamicIslandIndex = 0;
+                return;
             }
+            pressedSequentialAnimation.restart();
+            root.__dynamicIslandIndex = 2;
         }
     }
 

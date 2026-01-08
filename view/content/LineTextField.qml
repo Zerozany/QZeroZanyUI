@@ -71,13 +71,6 @@ Rectangle {
             Layout.rightMargin: root.password ? 0 : root.elementMargins
             Layout.alignment: Qt.AlignVCenter
             fillMode: Image.Pad
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    inputText.clear();
-                }
-            }
         }
 
         Image {
@@ -89,19 +82,13 @@ Rectangle {
             Layout.rightMargin: root.elementMargins
             Layout.alignment: Qt.AlignVCenter
             fillMode: Image.PreserveAspectFit
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: root.__switchPasswordVisible()
-            }
         }
     }
 
     MouseArea {
-        parent: Overlay.overlay
+        parent: inputText.activeFocus ? Overlay.overlay : root
         anchors.fill: parent
-        enabled: inputText.activeFocus
-        propagateComposedEvents: true
+
         onClicked: function (_mouse) {
             var localPos = passwordImage.mapFromItem(parent, _mouse.x, _mouse.y);
             if (root.password && passwordImage.contains(localPos)) {
@@ -111,6 +98,11 @@ Rectangle {
             localPos = clearImage.mapFromItem(parent, _mouse.x, _mouse.y);
             if (clearImage.contains(localPos)) {
                 inputText.clear();
+                return;
+            }
+            localPos = inputText.mapFromItem(parent, _mouse.x, _mouse.y);
+            if (inputText.contains(localPos)) {
+                inputText.focus = true;
                 return;
             }
             localPos = root.mapFromItem(parent, _mouse.x, _mouse.y);

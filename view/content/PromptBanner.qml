@@ -22,6 +22,7 @@ Rectangle {
     readonly property int fontSize: ThemeFont.fontSize["XL"]
     readonly property string fontFamily: ThemeFont.fontFamily
     readonly property string objectName: "PromptBanner"
+    readonly property int animationDuration: 300
 
     Text {
         anchors.fill: parent
@@ -53,13 +54,13 @@ Rectangle {
         ParallelAnimation {
             OpacityAnimator {
                 target: root
-                duration: 300
+                duration: root.animationDuration
                 from: 0
                 to: 1
             }
             ScaleAnimator {
                 target: root
-                duration: 300
+                duration: root.animationDuration
                 from: 0.5
                 to: 1
                 easing.type: Easing.OutQuart
@@ -70,7 +71,7 @@ Rectangle {
         }
         OpacityAnimator {
             target: root
-            duration: 300
+            duration: root.animationDuration
             to: 0
         }
         onStopped: {
