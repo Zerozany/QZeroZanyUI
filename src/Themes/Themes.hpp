@@ -6,7 +6,7 @@ namespace Themes
     inline QVariantMap lightTheme{
         {"backgroundColor", "#f0efee"},
         {"textColor", "#0e0d0d"},
-        {"textPressedColor", "#cdcdcd"},
+        {"pressedTextColor", "#cdcdcd"},
         {"buttonColor", "#FFFFFF"},
         {"elementColor", "#FFFFFF"},
         {"borderColor", "#cdcdcd"},

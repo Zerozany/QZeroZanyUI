@@ -13,7 +13,6 @@ Rectangle {
     property url source: ""
     property bool fontBold: false
 
-    readonly property string textPressedColor: ThemeManager.currentTheme["textPressedColor"]
     readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property string textColor: ThemeManager.currentTheme["textColor"]
     readonly property int elementRadius: ElementStyle.elementRadius

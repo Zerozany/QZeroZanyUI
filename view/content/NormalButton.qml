@@ -13,11 +13,12 @@ Rectangle {
     property url source: ""
     property url sourcePressed: ""
     property bool fontBold: false
+    // property string pressedColor: ThemeManager.currentTheme["pressedTextColor"]
+    property string pressedTextColor: ThemeManager.currentTheme["pressedTextColor"]
+    property string textColor: ThemeManager.currentTheme["textColor"]
 
     property bool _pressedTag: false
-    readonly property string textPressedColor: ThemeManager.currentTheme["textPressedColor"]
     readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
-    readonly property string textColor: ThemeManager.currentTheme["textColor"]
     readonly property int elementRadius: ElementStyle.elementRadius
     readonly property int elementMargins: ElementStyle.elementMargins
     readonly property int elementSpacing: ElementStyle.elementSpacing
@@ -45,7 +46,7 @@ Rectangle {
             }
             Text {
                 text: root.text
-                color: root._pressedTag ? root.textPressedColor : root.textColor
+                color: root._pressedTag ? root.pressedTextColor : root.textColor
                 wrapMode: Text.WordWrap
                 font.pixelSize: Math.floor(root.height * 0.3)
                 font.bold: root.fontBold
@@ -74,7 +75,7 @@ Rectangle {
             }
             Text {
                 text: root.text
-                color: root._pressedTag ? root.textPressedColor : root.textColor
+                color: root._pressedTag ? root.pressedTextColor : root.textColor
                 wrapMode: Text.WordWrap
                 font.pixelSize: Math.floor(root.width * 0.25)
                 font.bold: root.fontBold
