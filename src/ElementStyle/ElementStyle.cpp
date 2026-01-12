@@ -2,8 +2,8 @@
 
 ElementStyle* ElementStyle::create(QQmlEngine*, QJSEngine*)
 {
-    static ElementStyle elementStyle{};
-    return &elementStyle;
+    static ElementStyle* elementStyle{new ElementStyle{}};
+    return elementStyle;
 }
 
 ElementStyle::ElementStyle(QObject* _parent) : QObject{_parent}

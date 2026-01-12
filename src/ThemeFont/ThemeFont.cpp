@@ -2,8 +2,8 @@
 
 ThemeFont* ThemeFont::create(QQmlEngine*, QJSEngine*)
 {
-    static ThemeFont themeFont{};
-    return &themeFont;
+    static ThemeFont* themeFont{new ThemeFont{}};
+    return themeFont;
 }
 
 ThemeFont::ThemeFont(QObject* _parent) : QObject{_parent}
