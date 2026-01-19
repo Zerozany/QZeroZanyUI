@@ -10,8 +10,8 @@ T.TextField {
     leftPadding: root.height * 0.5 + root.elementMargins * 2
     rightPadding: root.height + root.elementMargins * 2
     color: enabled && activeFocus ? root.textColor : Material.hintTextColor
-    // selectionColor: Material.accentColor
-    // selectedTextColor: Material.primaryHighlightedTextColor
+    selectionColor: root.borderColor
+    selectedTextColor: root.constSelectedTextColor
     placeholderTextColor: enabled && activeFocus ? root.textColor : Material.hintTextColor
     verticalAlignment: TextInput.AlignVCenter
     Material.containerStyle: Material.Outlined
@@ -27,47 +27,7 @@ T.TextField {
 
     readonly property string textColor: ThemeManager.currentTheme["textColor"]
     readonly property int elementMargins: ElementStyle.elementMargins * 2
-
-    Image {
-        source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-        width: root.height * 0.5
-        height: root.height * 0.5
-        anchors.left: parent.left
-        anchors.leftMargin: root.elementMargins
-        anchors.verticalCenter: parent.verticalCenter
-        verticalAlignment: Text.AlignVCenter
-        fillMode: Image.PreserveAspectFit
-    }
-
-    Image {
-        id: clearImage
-        source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/clearInput.png"
-        width: root.height * 0.5
-        height: root.height * 0.5
-        anchors.right: passwordImage.left
-        anchors.rightMargin: root.elementMargins * 0.5
-        anchors.verticalCenter: parent.verticalCenter
-        verticalAlignment: Text.AlignVCenter
-        fillMode: Image.Pad
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                root.clear();
-            }
-        }
-    }
-
-    Image {
-        id: passwordImage
-        source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-        width: root.height * 0.5
-        height: root.height * 0.5
-        anchors.right: parent.right
-        anchors.rightMargin: root.elementMargins
-        anchors.verticalCenter: parent.verticalCenter
-        fillMode: Image.PreserveAspectFit
-    }
+    readonly property string constSelectedTextColor: "white"
 
     FloatingPlaceholderText {
         id: placeholder
@@ -84,6 +44,59 @@ T.TextField {
         floatingLeftPadding: root.Material.textFieldHorizontalPadding
     }
 
+    Image {
+        source: root.source
+        width: root.height * 0.5
+        height: root.height * 0.5
+        anchors.left: parent.left
+        anchors.leftMargin: root.elementMargins
+        anchors.verticalCenter: parent.verticalCenter
+        verticalAlignment: Text.AlignVCenter
+        fillMode: Image.PreserveAspectFit
+    }
+
+    Image {
+        source: root.clearSource
+        width: root.height * 0.5
+        height: root.height * 0.5
+        anchors.right: root.right
+        anchors.rightMargin: root.elementMargins + root.height * 0.5
+        anchors.verticalCenter: parent.verticalCenter
+        verticalAlignment: Text.AlignVCenter
+        fillMode: Image.Pad
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                root.clear();
+            }
+        }
+    }
+
+    Image {
+        source: root.passwordSource
+        width: root.height * 0.5
+        height: root.height * 0.5
+        anchors.right: parent.right
+        anchors.rightMargin: root.elementMargins
+        anchors.verticalCenter: parent.verticalCenter
+        fillMode: Image.PreserveAspectFit
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                root.echoMode = root.echoMode === TextInput.Password ? TextInput.Normal : TextInput.Password;
+                parent.source = parent.source === root.passwordSource ? root.pressedPasswordSource : root.passwordSource;
+            }
+        }
+
+        Component.onCompleted: {
+            if (root.echoMode !== TextInput.Password) {
+                visible = false;
+            }
+        }
+    }
+
     background: MaterialTextContainer {
         implicitWidth: root.height
         implicitHeight: root.Material.textFieldHeight
@@ -97,5 +110,27 @@ T.TextField {
         controlHasText: root.length > 0
         placeholderHasText: placeholder.text.length > 0
         horizontalPadding: root.Material.textFieldHorizontalPadding
+    }
+
+    MouseArea {
+        parent: root.enabled && root.activeFocus ? root.Window.window.contentItem : root
+        anchors.fill: parent
+        z: -99
+
+        onClicked: function (_mouse) {
+            var localPos = root.mapFromItem(parent, _mouse.x, _mouse.y);
+            if (!root.contains(localPos)) {
+                root.focus = false;
+                return;
+            }
+        }
+    }
+
+    onActiveFocusChanged: {
+        if (activeFocus) {
+            cursorPosition = text.length;
+            return;
+        }
+        cursorPosition = 0;
     }
 }
