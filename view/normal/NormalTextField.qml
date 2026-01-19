@@ -28,6 +28,7 @@ T.TextField {
     readonly property string textColor: ThemeManager.currentTheme["textColor"]
     readonly property int elementMargins: ElementStyle.elementMargins * 2
     readonly property string constSelectedTextColor: "white"
+    readonly property size childElementSize: Qt.size(root.height * 0.5, root.height * 0.5)
 
     FloatingPlaceholderText {
         id: placeholder
@@ -46,8 +47,8 @@ T.TextField {
 
     Image {
         source: root.source
-        width: root.height * 0.5
-        height: root.height * 0.5
+        width: root.childElementSize.width
+        height: root.childElementSize.height
         anchors.left: parent.left
         anchors.leftMargin: root.elementMargins
         anchors.verticalCenter: parent.verticalCenter
@@ -57,10 +58,10 @@ T.TextField {
 
     Image {
         source: root.clearSource
-        width: root.height * 0.5
-        height: root.height * 0.5
+        width: root.childElementSize.width
+        height: root.childElementSize.height
         anchors.right: root.right
-        anchors.rightMargin: root.elementMargins + root.height * 0.5
+        anchors.rightMargin: root.elementMargins + root.childElementSize.width
         anchors.verticalCenter: parent.verticalCenter
         verticalAlignment: Text.AlignVCenter
         fillMode: Image.Pad
@@ -75,8 +76,8 @@ T.TextField {
 
     Image {
         source: root.passwordSource
-        width: root.height * 0.5
-        height: root.height * 0.5
+        width: root.childElementSize.width
+        height: root.childElementSize.height
         anchors.right: parent.right
         anchors.rightMargin: root.elementMargins
         anchors.verticalCenter: parent.verticalCenter
