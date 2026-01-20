@@ -10,6 +10,7 @@ T.CheckBox {
 
     property string textColor: ThemeManager.currentTheme["textColor"]
     property string boxColor: "#7FFFD4"
+    property int radius: 2
 
     readonly property int elementSpacing: ElementStyle.elementSpacing
     readonly property int boxSize: 18
@@ -21,6 +22,7 @@ T.CheckBox {
         height: root.boxSize
         control: root
         enabled: root.enabled
+        radius: root.radius
         color: root.boxBackgroundColor
         border.color: !control.enabled ? control.Material.hintTextColor : checkState !== Qt.Unchecked ? root.boxColor : control.Material.secondaryTextColor
         border.width: checkState !== Qt.Unchecked ? width / 2 : 2
