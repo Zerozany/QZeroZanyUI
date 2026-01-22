@@ -34,14 +34,15 @@ public:
     Q_INVOKABLE QString currentThemeName() const;
     Q_INVOKABLE void    setCurrentThemeName(const QString& _currentThemeName);
 
+public:
+    Q_INVOKABLE QStringList getThemesList() noexcept;
+
 private:
     explicit(true) ThemeManager(QObject* _parent = nullptr);
 
     auto init() noexcept -> void;
 
-    auto setInitTheme() noexcept -> void;
-
-    auto getThemesList() noexcept -> QStringList;
+    auto initThemeConfig() noexcept -> void;
 
     auto setLightTheme() noexcept -> void;
 
@@ -58,8 +59,13 @@ private Q_SLOTS:
     void onCurrentThemeNameChanged();
 
 private:
-    QDir        m_themesDir{QDir(qApp->applicationDirPath()).filePath("Themes")};
-    QString     m_themeConfigDir{QDir(qApp->applicationDirPath()).filePath("ThemeConfig.ini")};
+#if defined(Q_OS_WINDOWS)
+    QDir    m_themesDir{QDir(qApp->applicationDirPath()).filePath("Themes")};
+    QString m_themeConfigDir{QDir(qApp->applicationDirPath()).filePath("ThemeConfig.ini")};
+#elif defined(Q_OS_ANDROID)
+    QDir    m_themesDir{QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).filePath("Themes")};
+    QString m_themeConfigDir{QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).filePath("ThemeConfig.ini")};
+#endif
     QStringList m_themesList{};
     QVariantMap m_currentTheme{};
     QString     m_currentThemeName{};
@@ -74,10 +80,10 @@ private:
     };
 
     QVariantMap m_darkTheme{
-        {"BackgroundColor", "#f0efee"},
-        {"TextColor", "#0e0d0d"},
+        {"BackgroundColor", "#131212"},
+        {"TextColor", "#FFFFFF"},
         {"ButtonColor", "#FFFFFF"},
-        {"ElementColor", "#FFFFFF"},
+        {"ElementColor", "rgb(100, 94, 94)"},
         {"LabelColor", "transparent"},
     };
 };

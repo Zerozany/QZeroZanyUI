@@ -11,7 +11,7 @@ ThemeManager::ThemeManager(QObject* _parent) : QObject{_parent}
 {
     std::invoke(&ThemeManager::init, this);
     std::invoke(&ThemeManager::connectSignal2Slot, this);
-    std::invoke(&ThemeManager::setInitTheme, this);
+    std::invoke(&ThemeManager::initThemeConfig, this);
 }
 
 auto ThemeManager::init() noexcept -> void
@@ -20,7 +20,7 @@ auto ThemeManager::init() noexcept -> void
     std::invoke(&ThemeManager::setDarkTheme, this);
 }
 
-auto ThemeManager::setInitTheme() noexcept -> void
+auto ThemeManager::initThemeConfig() noexcept -> void
 {
     QSettings settings{m_themeConfigDir, QSettings::IniFormat};
     settings.beginGroup("Theme");
@@ -32,13 +32,14 @@ auto ThemeManager::setInitTheme() noexcept -> void
     settings.endGroup();
 }
 
-auto ThemeManager::getThemesList() noexcept -> QStringList
+QStringList ThemeManager::getThemesList() noexcept
 {
     m_themesList.clear();
     for (const QFileInfo& info : m_themesDir.entryInfoList({"*.ini"}, QDir::Files | QDir::NoDotAndDotDot))
     {
         m_themesList << info.baseName();
     }
+    qDebug() << m_themesList;
     return m_themesList;
 }
 
@@ -67,7 +68,6 @@ void ThemeManager::onCurrentThemeNameChanged()
     settings.beginGroup("Theme");
     settings.setValue("ThemeName", this->m_currentThemeName);
     settings.endGroup();
-    settings.sync();
 }
 
 auto ThemeManager::setLightTheme() noexcept -> void
@@ -95,7 +95,6 @@ auto ThemeManager::setLightTheme() noexcept -> void
         settings.setValue("LabelColor", m_lightTheme["LabelColor"]);
     }
     settings.endGroup();
-    settings.sync();
 }
 
 auto ThemeManager::setDarkTheme() noexcept -> void
@@ -123,7 +122,6 @@ auto ThemeManager::setDarkTheme() noexcept -> void
         settings.setValue("LabelColor", m_darkTheme["LabelColor"]);
     }
     settings.endGroup();
-    settings.sync();
 }
 
 QVariantMap ThemeManager::currentTheme() const
