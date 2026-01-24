@@ -10,7 +10,6 @@ T.Button {
     scale: root.elementScale
     opacity: root.elementOpacity
     display: root.width <= root.height ? AbstractButton.TextUnderIcon : AbstractButton.TextBesideIcon
-    clip: true
     background: Rectangle {
         color: root.color
         radius: root.radius
