@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Templates as T
-import QZeroZanyUI
+import QZeroMaterialUI
 
 T.Label {
     id: root

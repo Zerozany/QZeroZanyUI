@@ -6,7 +6,7 @@ _Pragma("once");
 #include <QVariantMap>
 
 #if defined(Q_OS_WINDOWS) && defined(_MSC_VER)
-    #ifdef QZeroZanyUI
+    #ifdef QZeroMaterialUI
         #define QZERO_API Q_DECL_EXPORT
     #else
         #define QZERO_API Q_DECL_IMPORT

@@ -8,7 +8,7 @@ T.ComboBox {
 
     property string color: ThemeManager.currentTheme["ElementColor"]
     property string borderColor: '#52f5be'
-    property url cursorSource: "qrc:/qt/qml/QZeroZanyUI/view/resource/normalComboBox/cursor.png"
+    property url cursorSource: "qrc:/qt/qml/QZeroMaterialUI/view/resource/normalComboBox/cursor.png"
 
     readonly property string borderDefaultColor: "#CCCCCC"
     readonly property int elementRadius: ElementStyle.elementRadius
